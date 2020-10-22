@@ -1,4 +1,5 @@
 package com.example.skillcatchupsep.api.service;
+
 import com.example.skillcatchupsep.api.SseEntity;
 import com.example.skillcatchupsep.api.repository.SseRepository;
 import org.springframework.beans.factory.annotation.Autowired;

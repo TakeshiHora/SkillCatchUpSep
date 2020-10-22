@@ -1,4 +1,5 @@
 package com.example.skillcatchupsep.api.controller;
+
 import com.example.skillcatchupsep.api.PrefixEntity;
 import com.example.skillcatchupsep.api.SseEntity;
 import com.example.skillcatchupsep.api.repository.PrefixRepository;

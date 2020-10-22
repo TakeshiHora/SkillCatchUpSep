@@ -14,10 +14,10 @@ import java.util.List;
 public interface SseRepository {
     @Select
     public List<SseEntity> findAll();
-
+    
     @Select
     public int deleteAll();
-
+    
     @Insert
     @Transactional
     public int create(SseEntity entity);
