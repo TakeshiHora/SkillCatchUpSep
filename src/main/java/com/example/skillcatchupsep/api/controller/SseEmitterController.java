@@ -4,11 +4,13 @@ import com.example.skillcatchupsep.api.SseEntity;
 import com.example.skillcatchupsep.api.repository.SseRepository;
 import com.example.skillcatchupsep.api.service.SseService;
 import jp.ac.aiit.pbl.QZQSMDecoder;
+import jp.ac.aiit.pbl.disaster.Disaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,9 +34,16 @@ public class SseEmitterController {
                 QZQSMDecoder qzqsmDecoder = new QZQSMDecoder();
                 
                 List<SseEntity> SseValues = sseService.findAll();
+                List<Disaster> disasters = new ArrayList<>();
                 if((SseValues.size() !=0 )){
-                    emitter.send("/sse" + " @ " + qzqsmDecoder.decode(SseValues.get(0).getOriginaldata()));
-                    sseService.deleteAll();
+                    for (int i=0; i < SseValues.size(); i++){
+                        disasters.add(qzqsmDecoder.decode(SseValues.get(i).getOriginaldata()));
+                    }
+                    System.out.println("SseValues:" + SseValues.size());
+                    System.out.println(disasters);
+                    emitter.send(disasters);
+//                    emitter.send("/sse" + " @ " + qzqsmDecoder.decode(SseValues.get(0).getOriginaldata()));
+//                    sseService.deleteAll();
                 }
                 // we could send more events
                 emitter.complete();
